@@ -4,18 +4,6 @@ import validator from "validator";
 
 const userSchema = mongoose.Schema(
   {
-    firstName: {
-      type: String,
-      minlength: 3,
-      maxlength: 20,
-      trim: true,
-    },
-    lastName: {
-      type: String,
-      trim: true,
-      maxlength: 20,
-      default: "lastName",
-    },
     email: {
       type: String,
       required: [true, "Please provide email"],
@@ -24,13 +12,6 @@ const userSchema = mongoose.Schema(
         message: "Please provide a valid email",
       },
       unique: true,
-    },
-    phone: {
-      type: String,
-      validate: {
-        validator: validator.isMobilePhone,
-        message: "Please provide a valid phone",
-      },
     },
     password: {
       type: String,

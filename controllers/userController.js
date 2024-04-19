@@ -13,17 +13,9 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   if (userExists === null) {
-    let { firstName, lastName, email, phone, password } = req.body;
-    if (
-      firstName.length &&
-      lastName.length &&
-      email.length &&
-      password.length
-    ) {
+    let { email, password } = req.body;
+    if (password.length && password.length) {
       const person = new User({
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
         email: email,
         password: password,
       });
@@ -40,7 +32,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  console.log(email)
 
   if (!email || !password) {
     return res.status(400).json({
@@ -50,7 +41,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   // check if user email exists in db
   const user = await User.findOne({ email });
-  console.log(user)
+  console.log(user);
   // return user obj if their password matches
   if (user && (await user.matchPassword(password))) {
     res.json({
